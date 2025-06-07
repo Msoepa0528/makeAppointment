@@ -86,7 +86,7 @@
 import { aesEncrypt } from "./../utils/ase"; // @ts-ignore
 import { resetSize } from "./../utils/util";
 
-import { getCaptchaApi, checkCaptchaApi } from "@/apis/user";
+import { getCaptchaApi, checkCaptchaApi } from "@/apis/common";
 
 //  "captchaType":"blockPuzzle",
 export default {

@@ -58,7 +58,7 @@
   <script type="text/babel">
   import { resetSize, _code_chars, _code_color1, _code_color2 } from './../utils/util'
   import { aesEncrypt } from './../utils/ase'
-  import {getCaptchaApi,checkCaptchaApi} from "@/apis/user";
+  import {getCaptchaApi,checkCaptchaApi} from "@/apis/common";
   export default {
     name: 'VerifyPoints',
     props: {

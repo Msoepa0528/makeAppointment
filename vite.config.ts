@@ -11,6 +11,7 @@ import AutoImport from 'unplugin-auto-import/vite'
 export default defineConfig({
 
   server: {
+    
     // 是否监听所有地址
     host: true,
     // 端口号
@@ -22,7 +23,7 @@ export default defineConfig({
     // 反向代理
     proxy: {
       "/api": {
-        target: "http://192.168.1.101:16809/api",
+        target: "http://192.168.1.187:13902/api",
         // target: "http://plans.frp.saonian.org/api",
         // 是否为 WebSocket
         ws: false,

@@ -1,5 +1,5 @@
 import type { AxiosInstance, AxiosRequestConfig } from "axios"
-import { getLanguage } from "@/utils/cache/cookies"
+import { getLanguage, getMerchantId, getShopId } from "@/utils/cache/cookies"
 import axios from "axios"
 import { get, merge } from "lodash-es"
 import { ElMessage } from 'element-plus'
@@ -98,12 +98,16 @@ function createInstance() {
 function createRequest(instance: AxiosInstance) {
   return <T>(config: AxiosRequestConfig): Promise<T> => {
     const language = getLanguage()
+    const shopId = getShopId()
+    const merchantId = getMerchantId()
     // 默认配置
     const defaultConfig: AxiosRequestConfig = {
       // 接口地址
       baseURL: import.meta.env.VITE_BASE_URL,
       // 请求头
       headers: {
+        "X-Merchant-Id": merchantId,
+        "X-Shop-Id":  shopId,
         "accept-language": language,
         "Content-Type": "application/json"
       },

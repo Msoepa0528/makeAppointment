@@ -58,8 +58,8 @@
                 v-for="(iv, inIndex) in item.itemList"
                 :key="inIndex"
                 :label="iv.label"
-                :prop="['type', 'server', 'customer'].includes(iv.value) ? iv.value : ''"
               >
+              <!-- :prop="['type', 'server', 'customer'].includes(iv.value) ? iv.value : ''" -->
                 <div class="add-server-select" v-if="iv.value.indexOf('server') !== -1">
                   <el-cascader
                     style="width: 100%"
@@ -243,12 +243,12 @@ const delType = (id: string) => {
   formList.value = formList.value.filter((iv: any) => iv.id !== id);
 };
 const addServer = (id: string) => {
-  formList.value.forEach((iv: any) => {
+  formList.value = formList.value.map((iv: any) => {
     if (iv.id === id) {
-      const id = getRandomString(4);
-      const serverKey = `server_${id}`;
+      const idServer = getRandomString(4);
+      const serverKey = `server_${idServer}`;
       iv.itemList.splice(iv.itemList.length - 1, 0, {
-        id: id,
+        id: idServer,
         label: "",
         value: serverKey,
         optionsData: productList.value.filter(
@@ -258,14 +258,20 @@ const addServer = (id: string) => {
       iv.model[serverKey] = "";
       // iv.rules[serverKey] = [{ required: true, message: "", trigger: "change" }];
     }
+    return {
+      ...iv
+    }
   });
   console.log(formList.value);
 };
 const delServer = (id: string, id2: string) => {
-  formList.value.forEach((iv: any) => {
+  formList.value = formList.value.map((iv: any) => {
     if (iv.id === id) {
       iv.itemList = iv.itemList.filter((iv2: any) => iv2.id !== id2);
       delete iv.model[`server_${id2}`];
+    }
+    return {
+      ...iv
     }
   });
   console.log(formList.value);

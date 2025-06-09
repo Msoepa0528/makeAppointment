@@ -13,9 +13,16 @@ module.exports = {
     },
     'postcss-pxtorem': {
       rootValue({ file }) {
-        console.log("postcss-pxtorem==>",file)
-        return 192
-        // return file.indexOf("vant") !== -1 ? 37.5 : 75;
+        console.log("file==>",file)
+        // const isMobile = function(){
+        //   let userAgentInfo = navigator && navigator?.userAgent;
+        //   let Agents = ['Android', 'iPhone', 'SymbianOS', 'Windows Phone', 'iPad', 'iPod'];
+        //   let getArr = Agents.filter(i => userAgentInfo?.includes(i));
+        //   return 75;
+        // }
+        // return 75
+        // file.indexOf("vant") === -1 ? 192 : 75
+        return 37.5;
       },
       propList: ['*'],
       selectorBlackList: ['.van-notify',], // 在黑名单中的类名，将不会自动rem转换

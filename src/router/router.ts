@@ -11,9 +11,28 @@ export default [
 
     },
     {
+      path: '/mobileIndex',
+      name: 'mobileIndex',
+      component: () => import('../views/mobile/IndexView.vue'),
+      meta: {
+        keepAlive:true
+      }
+
+    },
+
+    {
       path: '/user',
       name: 'User',
       component: () => import('../views/UserView.vue'),
+    },
+    {
+      path: '/mobileUser',
+      name: 'mobileUser',
+      component: () => import('../views/mobile/UserView.vue'),
+      meta: {
+        keepAlive:true
+      }
+
     },
     {
       path: '/poinSuccess',
@@ -21,9 +40,19 @@ export default [
       component: () => import('../views/PoinSuccessView.vue'),
     },
     {
-      path: '/register',
-      name: 'Register',
-      component: () => import('../views/RegisterView.vue'),
-    }
+      path: '/mobilePoinSuccess',
+      name: 'mobilePoinSuccess',
+      component: () => import('../views/mobile/PoinSuccessView.vue'),
+    },
+      {
+        path: '/register',
+        name: 'Register',
+        component: () => import('../views/RegisterView.vue'),
+      },
+      {
+        path: '/mobileRegister',
+        name: 'mobileRegister',
+        component: () => import('../views/mobile/RegisterView.vue'),
+      }
 ]
     

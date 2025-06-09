@@ -79,7 +79,7 @@ watch(
 </script>
 <style scoped lang="less">
 .all-country {
-        width: 300px;
+        width: 400px;
         display: flex;
         align-items: center;
         justify-content: left;

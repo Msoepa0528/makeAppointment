@@ -1,13 +1,11 @@
 <template>
   <div class="index-view">
     <el-row>
-      <el-col :span="9">
-        <div class="col-content-left">
-          <img src="@/assets/logo.png" alt="" />
-        </div>
-      </el-col>
-      <el-col :span="6">
+      <el-col :span="24">
         <div class="col-content-right">
+          <div class="top-logo">
+            <img src="@/assets/logo.png" alt="" />
+          </div>
           <div class="top-content">
             <el-row>
               <el-col :span="24">
@@ -41,6 +39,7 @@
               <el-date-picker
                 v-model="formModal.date"
                 type="date"
+                 :editable="false"
                 placeholder="Pick a day"
               />
             </el-form-item>
@@ -138,6 +137,10 @@ onMounted(() => {
 .index-view {
   width: 100%;
   height: 100vh;
+  background-image: url("@/assets/bg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   .el-row {
     height: 100%;
   }
@@ -145,24 +148,26 @@ onMounted(() => {
     // display: flex;
     // flex-direction: column;
   }
-  .col-content-left {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-    > img {
-      width: 200px;
-      height: 40px;
-    }
-  }
   .col-content-right {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
-    width: 100%;
+    height: 90vh;
+    overflow-y: auto;
+    width: 80%;
+    margin: auto;
+    margin-top: 40px;
+    padding: 0 35px;
+    background-color: #fff;
+    border-radius: 5px;
+    .top-logo {
+      width: 100%;
+      height: 10%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      > img {
+        width: 80%;
+        // height: 100%;
+      }
+    }
     .top-content {
       margin-bottom: 20px;
       .poin-suc {

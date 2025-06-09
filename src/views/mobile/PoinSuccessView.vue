@@ -1,26 +1,60 @@
 <template>
   <div class="index-view">
     <el-row>
-      <el-col :span="9">
-        <div class="col-content-left">
-          <img src="@/assets/logo.png" alt="" />
-        </div>
-      </el-col>
-      <el-col :span="6">
+      <el-col :span="24">
         <div class="col-content-right">
+          <div class="top-logo">
+            <img src="@/assets/logo.png" alt="" />
+          </div>
           <div class="top-content">
             <el-row>
               <el-col :span="24">
-                <div class="poin-suc">注册会员</div>
+                <div class="poin-suc">预约成功!</div>
+              </el-col>
+              <el-col :span="12">
+                <div class="con">
+                  <el-icon><Calendar /></el-icon>
+                  <span v-if="commonStore.pageOneParams?.word">
+                    {{ commonStore.pageOneParams?.word.date }}
+                  </span>
+                </div>
+              </el-col>
+              <el-col :span="12">
+                <div class="con">
+                  <el-icon><Timer /></el-icon>
+                  <span v-if="commonStore.pageOneParams?.word">
+                    {{ commonStore.pageOneParams?.word.time }}
+                  </span>
+                </div>
               </el-col>
             </el-row>
           </div>
-          <el-form
-            ref="formRefRegister"
-            :model="formModal"
-            :rules="formRules"
-            :label-position="'left'"
-          >
+          <el-form ref="formRef" :label-position="'left'">
+            <el-form-item label="门店:">
+              <div v-if="commonStore.pageOneParams?.word">
+                {{ commonStore.pageOneParams?.word.stormName }}
+              </div>
+            </el-form-item>
+            <div
+              v-for="(item, index) in commonStore.pageOneParams?.word.list"
+              :key="index"
+            >
+              <el-form-item label="类别:">
+                <div>
+                  {{ item.categoryList }}
+                </div>
+              </el-form-item>
+              <el-form-item label="服务:">
+                <div>
+                  {{ item.productList }}
+                </div>
+              </el-form-item>
+              <el-form-item label="员工:">
+                <div>
+                  {{ item.customerName }}
+                </div>
+              </el-form-item>
+            </div>
             <el-form-item label="姓名:">
               <div v-if="commonStore.pageOneParams?.word">
                 {{ commonStore.pageOneParams?.word.name }}
@@ -31,34 +65,18 @@
                 {{ commonStore.pageOneParams?.word.phone }}
               </div>
             </el-form-item>
-            <el-form-item label="性别:" prop="sex">
-              <el-radio-group v-model="formModal.sex">
-                <el-radio :value="1">男</el-radio>
-                <el-radio :value="0">女</el-radio>
-              </el-radio-group>
-            </el-form-item>
-            <el-form-item label="生日:" prop="date">
-              <el-date-picker
-                v-model="formModal.date"
-                type="date"
-                placeholder="Pick a day"
-              />
-            </el-form-item>
-            <el-form-item label="邮箱:" prop="email">
-              <el-input v-model="formModal.email" placeholder="Please input" />
-            </el-form-item>
-            <el-form-item label="地址:" prop="address">
-              <el-input v-model="formModal.address" placeholder="Please input" />
-            </el-form-item>
           </el-form>
-
-          <div class="footer-btns">
+          <div class="tips" v-if="commonStore.pageOneParams?.word.newCustomered">
+            <p>新用户？</p>
+            <p>是否注册成为我们的会员？</p>
+          </div>
+          <div class="footer-btns" v-if="commonStore.pageOneParams?.word.newCustomered">
             <el-row :gutter="24">
               <el-col :span="12" class="back-btn-col">
-                <el-button class="back-btn" @click="back">取消</el-button>
+                <el-button class="back-btn" @click="back">不,谢谢</el-button>
               </el-col>
               <el-col :span="12" class="sure-btn-col">
-                <el-button class="sure-btn" @click="submit"> 完成 </el-button>
+                <el-button class="sure-btn" @click="submit"> 好的 </el-button>
               </el-col>
             </el-row>
           </div>
@@ -70,56 +88,23 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import { Calendar, Timer } from "@element-plus/icons-vue";
 import { ElMessage, ElLoading } from "element-plus";
 import { useCommonStore } from "@/stores/modules/common";
-import { updateWaiterApi } from "@/apis/common";
-import moment from "moment";
+import { cloneDeep } from "lodash-es";
 defineOptions({
   // eslint-disable-next-line vue/multi-word-component-names
   name: "PoinSuccess",
 });
-const formRefRegister = ref();
 const commonStore = useCommonStore();
 const router = useRouter();
-const formModal = ref({
-  date: "",
-  email: "",
-  address: "",
-  sex: "",
-});
-const formRules = computed(() => {
-  return {
-    sex: [{ required: true, message: "请选择性别", trigger: "change" }],
-    date: [{ required: true, message: "请选择生日", trigger: "change" }],
-    email: [{ required: true, message: "请输入邮箱", trigger: "change" }],
-    address: [{ required: true, message: "请输入地址", trigger: "change" }],
-  };
-});
+
 const submit = () => {
-  console.log("===commonStore", commonStore.pageOneParams.word,formRefRegister.value);
-  formRefRegister.value.validate(async (valid: any) => {
-    if (valid) {
-      const res: any = await updateWaiterApi({
-        ...commonStore.pageOneParams.userInfo,
-        id: commonStore.pageOneParams.word.newCustomeredId,
-        username: commonStore.pageOneParams.word.name,
-        mobile: commonStore.pageOneParams.word.phone,
-        gender: formModal.value.sex,
-        email: formModal.value.email,
-        birthday: moment(formModal.value.date).format("YYYY-MM-DD"),
-        address: formModal.value.address,
-      });
-      if (res && res.code === 20000) {
-        ElMessage.success("用户注册成功！！！");
-      }
-    }else{
-      console.log("submit error")
-    }
-  });
+  router.push("/mobileRegister");
 };
 
 const back = () => {
-  router.back();
+  router.push("/mobileIndex");
 };
 onMounted(() => {
   // console.log(commonStore.pageOneParams);
@@ -138,6 +123,10 @@ onMounted(() => {
 .index-view {
   width: 100%;
   height: 100vh;
+  background-image: url("@/assets/bg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   .el-row {
     height: 100%;
   }
@@ -145,31 +134,33 @@ onMounted(() => {
     // display: flex;
     // flex-direction: column;
   }
-  .col-content-left {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-    > img {
-      width: 200px;
-      height: 40px;
-    }
-  }
   .col-content-right {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
-    width: 100%;
+    height: 90vh;
+    overflow-y: auto;
+    width: 80%;
+    margin: auto;
+    margin-top: 40px;
+    padding: 0 15px;
+    background-color: #fff;
+    border-radius: 5px;
+    .top-logo {
+      width: 100%;
+      height: 10%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      > img {
+        width: 80%;
+        // height: 100%;
+      }
+    }
     .top-content {
       margin-bottom: 20px;
       .poin-suc {
         font-family: PingFang SC, PingFang SC;
         font-weight: 500;
         font-size: 24px;
-        color: #8b68e6;
+        color: #000000;
         text-align: center;
         margin-bottom: 40px;
       }
@@ -199,7 +190,7 @@ onMounted(() => {
       }
     }
     :deep(.el-form-item) {
-      // margin-bottom: 10px !important;
+      margin-bottom: 10px !important;
     }
     :deep(.el-form-item--label-top .el-form-item__label) {
       margin-bottom: 0px !important;
@@ -240,7 +231,8 @@ onMounted(() => {
     }
     .footer-btns {
       width: 100%;
-      margin-top: 100px;
+      margin-top: 40px;
+      padding-bottom: 20px;
       .back-btn-col {
         width: 100%;
         height: 40px;

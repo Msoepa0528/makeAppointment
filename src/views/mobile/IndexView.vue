@@ -1,13 +1,16 @@
 <template>
   <div class="index-view">
     <el-row>
-      <el-col :span="9">
+      <!-- <el-col :span="9">
         <div class="col-content-left">
           <img src="@/assets/logo.png" alt="" />
         </div>
-      </el-col>
-      <el-col :span="6">
+      </el-col> -->
+      <el-col :span="24">
         <div class="col-content-right">
+          <div class="top-logo">
+            <img src="@/assets/logo.png" alt="" />
+          </div>
           <el-form
             ref="formRef"
             :label-position="'top'"
@@ -34,6 +37,7 @@
                 value-format="YYYY-MM-DD"
                 style="width: 100%"
                 type="date"
+                 :editable="false"
                 placeholder="Pick a day"
               />
             </el-form-item>
@@ -43,6 +47,7 @@
                 start="08:30"
                 step="00:15"
                 end="18:30"
+                  :editable="false"
                 placeholder="Select time"
               />
             </el-form-item>
@@ -440,7 +445,7 @@ const submit = () => {
           };
           console.log("请求参数：", formList.value, formModel.value, params);
           commonStore.setPageOneParamsFn(params);
-          router.push("/user");
+          router.push("/mobileUser");
         } else {
           console.log("Some forms are invalid");
         }
@@ -564,6 +569,10 @@ onMounted(() => {
 .index-view {
   width: 100%;
   height: 100vh;
+  background-image: url("@/assets/bg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   .el-row {
     height: 100%;
   }
@@ -571,24 +580,31 @@ onMounted(() => {
     // display: flex;
     // flex-direction: column;
   }
-  .col-content-left {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-    > img {
-      width: 200px;
-      height: 40px;
-    }
-  }
+
   .col-content-right {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
-    width: 100%;
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: center;
+    // align-items: center;
+    height: 90vh;
+    overflow-y: auto;
+    width: 80%;
+    margin: auto;
+    margin-top: 40px;
+    padding: 0 35px;
+    background-color: #fff;
+    border-radius: 5px;
+    .top-logo {
+      width: 100%;
+      height: 10%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      > img {
+        width: 80%;
+        // height: 100%;
+      }
+    }
     .add-server-select {
       width: 100%;
       position: relative;
@@ -636,7 +652,8 @@ onMounted(() => {
     }
     .footer-btns {
       width: 100%;
-      margin-top: 100px;
+      margin-top: 40px;
+      padding-bottom: 20px;
       .back-btn-col {
         width: 100%;
         height: 40px;

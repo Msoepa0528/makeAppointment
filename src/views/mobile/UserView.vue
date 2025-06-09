@@ -1,13 +1,11 @@
 <template>
   <div class="index-view">
     <el-row>
-      <el-col :span="9">
-        <div class="col-content-left">
-          <img src="@/assets/logo.png" alt="" />
-        </div>
-      </el-col>
-      <el-col :span="6">
+      <el-col :span="24">
         <div class="col-content-right">
+          <div class="top-logo">
+            <img src="@/assets/logo.png" alt="" />
+          </div>
           <div class="top-content">
             <el-row>
               <el-col :span="12">
@@ -29,12 +27,12 @@
             </el-row>
           </div>
           <el-form
-            ref="formRef"
+            ref="formRef1"
             :label-position="'left'"
             :model="formModel"
             :rules="formRules"
           >
-            <el-form-item label="门店:">
+          <el-form-item label="门店:">
               <div v-if="commonStore.pageOneParams?.word">
                 {{ commonStore.pageOneParams?.word.stormName }}
               </div>
@@ -59,6 +57,13 @@
                 </div>
               </el-form-item>
             </div>
+          </el-form>
+          <el-form
+            ref="formRef"
+            :label-position="'top'"
+            :model="formModel"
+            :rules="formRules"
+          >
             <el-form-item label="姓名:" prop="name">
               <el-input v-model="formModel.name" placeholder="Please input" />
             </el-form-item>
@@ -67,14 +72,14 @@
                 v-model="formModel.phone"
                 placeholder="Please input"
                 class="input-with-select"
-                style="width: 77%"
+                style="width: 73%"
               >
                 <template #prepend>
                   <AllCountryView @changeCountry="changeCountry" />
                 </template>
               </el-input>
-              <span style="display: inline-block; width: 3%"></span>
-              <el-button style="width: 20%" @click="sendCode">
+              <span style="display: inline-block; width: 2%"></span>
+              <el-button style="width: 25%" @click="sendCode">
                 <span v-if="num === 0">发送验证码</span>
                 <span v-else>({{ num }}s)</span>
               </el-button>
@@ -192,7 +197,7 @@ const submit = () => {
           ...res.data
         }
       })
-        router.push("/poinSuccess");
+        router.push("/mobilePoinSuccess");
       }
   
     } else {
@@ -241,7 +246,7 @@ onMounted(() => {
     !commonStore.pageOneParams?.params ||
     !commonStore.pageOneParams?.word
   ) {
-    router.push("/index");
+    router.push("/mobileIndex");
   }
   // getData();
 });
@@ -251,6 +256,10 @@ onMounted(() => {
 .index-view {
   width: 100%;
   height: 100vh;
+  background-image: url("@/assets/bg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   .el-row {
     height: 100%;
   }
@@ -271,11 +280,28 @@ onMounted(() => {
     }
   }
   .col-content-right {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
-    width: 100%;
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: center;
+    height: 90vh;
+    overflow-y: auto;
+    width: 90%;
+    margin: auto;
+    margin-top: 5vh;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 0 15px;
+    .top-logo {
+      width: 100%;
+      height: 10%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      > img {
+        width: 80%;
+        // height: 100%;
+      }
+    }
     .top-content {
       margin-bottom: 20px;
       .con {
@@ -337,7 +363,8 @@ onMounted(() => {
     }
     .footer-btns {
       width: 100%;
-      margin-top: 100px;
+      margin-top: 40px;
+      padding-bottom: 20px;
       .back-btn-col {
         width: 100%;
         height: 40px;

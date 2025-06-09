@@ -35,10 +35,11 @@ export function getProductListApi() {
  * 
  * @returns 获取员工
  */
-export function getWaiterListApi() {
+export function getWaiterListApi(data:any) {
   return request<Types.countryResponseData>({
     url: "/waiter/findNoToken",
-    method: "post"
+    method: "post",
+    data:data
   })
 }
 /**

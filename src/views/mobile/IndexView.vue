@@ -54,7 +54,9 @@
           </el-form>
           <div v-for="(item, index) in formList" :key="index">
             <el-form
-              :ref="(event:any) => item.ref = event"
+              :ref="()=>{
+                item.ref = formRef
+              }"
               :label-position="'top'"
               :model="item.model"
               :rules="item.rules"
@@ -153,7 +155,7 @@ defineOptions({
 });
 const defaultFormList = [
   {
-    ref: `formRef_${getRandomString(8)}`,
+    ref: null,
     id: getRandomString(4),
     itemList: [
       {
@@ -337,18 +339,10 @@ const changeServer = (e: any, id: any, id2: any) => {
   })
 }
 const submit = () => {
-  // router.push({
-  //       path: "/user",
-  //       query: {
-  //         shopId: commonStore.shopId,
-  //         formList: JSON.stringify(formList.value),
-  //       },
-  //     });
-  //     return false;
   formRef.value.validate((valid: any) => {
     if (valid) {
       // Validate all dynamically generated forms
-      const formRefs = formList.value.map((item: any) => item.ref);
+      const formRefs = formList.value.map((item: any) => item.ref && item.ref);
       const promises = formRefs.map((ref: any) => {
         return new Promise((resolve: any) => {
           // const form = formRefs.find((f:any) => f === ref);
@@ -364,6 +358,7 @@ const submit = () => {
       });
       Promise.all(promises).then((results) => {
         const allValid = results.every((result) => result === true);
+        console.log("allValid===>", allValid);
         if (allValid) {
           console.log("allValid", formList.value, formModel.value);
           const arr: any = [];
@@ -594,6 +589,7 @@ onMounted(() => {
     padding: 0 35px;
     background-color: #fff;
     border-radius: 5px;
+    font-size: 16px;
     .top-logo {
       width: 100%;
       height: 10%;

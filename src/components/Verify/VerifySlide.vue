@@ -36,7 +36,11 @@
         'line-height': barSize.height,
       }"
     >
-      <span class="verify-msg" v-text="text" />
+      <span class="verify-msg" :style="{
+        height: barSize.height,
+        'line-height': barSize.height,
+        display: 'block'
+      }" v-text="text" />
       <div
         class="verify-left-bar"
         :style="{

@@ -143,6 +143,7 @@ onMounted(() => {
     padding: 0 15px;
     background-color: #fff;
     border-radius: 5px;
+    font-size: 16px;
     .top-logo {
       width: 100%;
       height: 10%;

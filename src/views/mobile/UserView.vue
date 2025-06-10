@@ -10,16 +10,16 @@
             <el-row>
               <el-col :span="12">
                 <div class="con">
-                  <el-icon><Calendar /></el-icon>
-                  <span v-if="commonStore.pageOneParams?.word">
+                  <el-icon style="font-size: 0.55rem;" ><Calendar /></el-icon>
+                  <span style="font-size: 0.5rem;" v-if="commonStore.pageOneParams?.word">
                     {{ commonStore.pageOneParams?.word.date }}
                   </span>
                 </div>
               </el-col>
               <el-col :span="12">
                 <div class="con">
-                  <el-icon><Timer /></el-icon>
-                  <span v-if="commonStore.pageOneParams?.word">
+                  <el-icon style="font-size: 0.5rem;"><Timer /></el-icon>
+                  <span style="font-size: 0.5rem;" v-if="commonStore.pageOneParams?.word">
                     {{ commonStore.pageOneParams?.word.time }}
                   </span>
                 </div>
@@ -291,6 +291,7 @@ onMounted(() => {
     background-color: #fff;
     border-radius: 5px;
     padding: 0 15px;
+    font-size: 16px;
     .top-logo {
       width: 100%;
       height: 10%;

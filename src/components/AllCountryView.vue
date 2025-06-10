@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-select v-model="value" filterable placeholder="+86" style="width: 0.45rem;" @change="changeCountry">
+        <el-select v-model="value" filterable placeholder="+86" style="width: 2.3rem;" @change="changeCountry">
             <el-option v-for="item in options" :key="item.num" :label="item.num" :value="item.num">
                 <div class="all-country">
                     <img :src="item.icon" alt="">

@@ -6,7 +6,7 @@
       </KeepAlive >
   </RouterView> -->
   <router-view v-slot="{ Component }">
-    <keep-alive include="Index,mobileIndex">
+    <keep-alive include="Index">
       <component :is="Component" />
     </keep-alive>
   </router-view>

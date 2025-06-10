@@ -108,6 +108,7 @@ const submit = () => {
         email: formModal.value.email,
         birthday: moment(formModal.value.date).format("YYYY-MM-DD"),
         address: formModal.value.address,
+        enabled: commonStore.pageOneParams?.userInfo?.enabled ? true : false
       });
       if (res && res.code === 20000) {
         ElMessage.success("用户注册成功！！！");

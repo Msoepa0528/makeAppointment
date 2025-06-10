@@ -11,26 +11,28 @@
     
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" /> -->
     <title>美甲预约</title>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const html = document.querySelector('html');
+        const isMobile = function(){
+            let userAgentInfo = navigator && navigator?.userAgent;
+            let Agents = ['Android', 'iPhone', 'SymbianOS', 'Windows Phone', 'iPad', 'iPod'];
+            let getArr = Agents.filter(i => userAgentInfo?.includes(i));
+            return getArr.length > 0 ? true : false;
+          }
+        if(isMobile()){
+          var meta = document.createElement('meta');
+          meta.name = 'viewport';
+          meta.content = 'width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1';
+          document.head.appendChild(meta);
+        }else{
+          // html.style.fontSize = '256px';
+        }
+      });
+    </script>
   </head>
   <body>
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
   </body>
-  <script>
-  
-    // document.addEventListener('DOMContentLoaded', function() {
-    //   const html = document.querySelector('html');
-    //   const isMobile = function(){
-    //       let userAgentInfo = navigator && navigator?.userAgent;
-    //       let Agents = ['Android', 'iPhone', 'SymbianOS', 'Windows Phone', 'iPad', 'iPod'];
-    //       let getArr = Agents.filter(i => userAgentInfo?.includes(i));
-    //       return getArr.length > 0 ? true : false;
-    //     }
-    //   if(isMobile()){
-    //     html.style.fontSize = '512px';
-    //   }else{
-    //     // html.style.fontSize = '256px';
-    //   }
-    // });
-  </script>
 </html>

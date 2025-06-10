@@ -100,11 +100,11 @@ const commonStore = useCommonStore();
 const router = useRouter();
 
 const submit = () => {
-  router.push("/mobileRegister");
+  router.push("/Register");
 };
 
 const back = () => {
-  router.push("/mobileIndex");
+  router.push("/Index");
 };
 onMounted(() => {
   // console.log(commonStore.pageOneParams);

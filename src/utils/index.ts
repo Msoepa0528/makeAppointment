@@ -24,3 +24,9 @@ export const getVersion = async () => {
   return res;
 }
 
+export const isMobile = () =>{
+  const userAgentInfo = navigator && navigator?.userAgent;
+  const Agents = ['Android', 'iPhone', 'SymbianOS', 'Windows Phone', 'iPad', 'iPod'];
+  const getArr = Agents.filter(i => userAgentInfo?.includes(i));
+  return getArr.length > 0 ? true : false;
+}

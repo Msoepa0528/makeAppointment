@@ -1,9 +1,10 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import { getVersion } from "@/utils/index"
-import routerMenu from "@/router/router"
+import { getVersion,isMobile } from "@/utils/index"
+import pcRouter from "@/router/pcRouter"
+import mobileRouter from "@/router/mobileRouter"
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
-  routes: routerMenu,
+  routes: isMobile() ? mobileRouter : pcRouter,
   scrollBehavior() {
     // to, from, savedPosition
     createWebHashHistory

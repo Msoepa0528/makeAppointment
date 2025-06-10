@@ -197,7 +197,7 @@ const submit = () => {
           ...res.data
         }
       })
-        router.push("/mobilePoinSuccess");
+        router.push("/PoinSuccess");
       }
   
     } else {
@@ -246,7 +246,7 @@ onMounted(() => {
     !commonStore.pageOneParams?.params ||
     !commonStore.pageOneParams?.word
   ) {
-    router.push("/mobileIndex");
+    router.push("/Index");
   }
   // getData();
 });

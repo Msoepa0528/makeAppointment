@@ -445,7 +445,7 @@ const submit = () => {
           };
           console.log("请求参数：", formList.value, formModel.value, params);
           commonStore.setPageOneParamsFn(params);
-          router.push("/mobileUser");
+          router.push("/User");
         } else {
           console.log("Some forms are invalid");
         }
